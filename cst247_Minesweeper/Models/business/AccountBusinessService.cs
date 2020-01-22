@@ -22,7 +22,7 @@ namespace cst247_Minesweeper.Models.business
             }
         }
 
-        public bool register(UserModel user)
+        public bool Register(UserModel user)
         {
             if (ds.Create(user))
             {
