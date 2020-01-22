@@ -1,4 +1,6 @@
-﻿using System;
+﻿using cst247_Minesweeper.Models;
+using cst247_Minesweeper.Models.cst247_Minesweeper.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
