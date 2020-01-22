@@ -1,11 +1,5 @@
 ﻿using cst247_Minesweeper.Models;
-using cst247_Minesweeper.Models.cst247_Minesweeper.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using cst247_Minesweeper.Models;
 using cst247_Minesweeper.Models.business;
 
 namespace cst247_Minesweeper.Controllers
