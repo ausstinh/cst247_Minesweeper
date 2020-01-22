@@ -11,7 +11,37 @@ namespace cst247_Minesweeper.Controllers
         // GET: Account
         public ActionResult Index()
         {
-            return View();
+            return View("Login");
+        }
+
+        [HttpPost]
+        public ActionResult Login(UserModel user)
+        {
+            AccountBusinessService bs = new AccountBusinessService();
+
+            if (bs.Authenticate(user))
+            {
+                return View("LoginSuccess", user);
+            }
+            else
+            {
+                return View("LoginFailed");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Register(UserModel user)
+        {
+            AccountBusinessService bs = new AccountBusinessService();
+
+            if (bs.Register(user))
+            {
+                return View("Login", user);
+            }
+            else
+            {
+                return View("RegisterFailed");
+            }
         }
     }
 }
