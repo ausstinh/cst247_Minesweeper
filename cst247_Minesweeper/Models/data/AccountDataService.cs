@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using cst247_Minesweeper.Models;
 
 namespace cst247_Minesweeper.Models.data
 {
