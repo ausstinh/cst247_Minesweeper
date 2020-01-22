@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using cst247_Minesweeper.Models.data;
 
 namespace cst247_Minesweeper.Models.business
 {
@@ -11,7 +12,7 @@ namespace cst247_Minesweeper.Models.business
 
         public bool Authenticate(UserModel user)
         {
-            if (ds.authenticate(user))
+            if (ds.Authenticate(user))
             {
                 return true;
             }
@@ -23,7 +24,7 @@ namespace cst247_Minesweeper.Models.business
 
         public bool register(UserModel user)
         {
-            if (ds.create(user))
+            if (ds.Create(user))
             {
                 return true;
             }
