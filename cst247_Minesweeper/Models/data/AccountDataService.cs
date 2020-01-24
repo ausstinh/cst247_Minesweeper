@@ -36,6 +36,7 @@ namespace cst247_Minesweeper.Models.data
                         success = true;
                     }
                     reader.Close();
+                    connection.Close();
                 }
                 catch (Exception e)
                 {
@@ -65,9 +66,9 @@ namespace cst247_Minesweeper.Models.data
             throw new NotImplementedException();
         }
 
-        public bool Authenticate(UserModel user)
+        public int Authenticate(UserModel user)
         {
-            bool success = false;
+            int loggedInId = -1;
 
             string queryString = "SELECT * FROM dbo.users WHERE USERNAME = @USERNAME AND PASSWORD = @PASSWORD";
 
@@ -84,16 +85,18 @@ namespace cst247_Minesweeper.Models.data
 
                     if (reader.HasRows)
                     {
-                        success = true;
+                        reader.Read();
+                        loggedInId = reader.GetInt32(0);
                     }
                     reader.Close();
+                    connection.Close();
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
             }
-            return success;
+            return loggedInId;
         }
 
     }

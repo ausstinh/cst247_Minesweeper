@@ -10,28 +10,14 @@ namespace cst247_Minesweeper.Models.business
     {
         private AccountDataService ds = new AccountDataService();
 
-        public bool Authenticate(UserModel user)
+        public int Authenticate(UserModel user)
         {
-            if (ds.Authenticate(user))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return ds.Authenticate(user);
         }
 
         public bool Register(UserModel user)
         {
-            if (ds.Create(user))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return ds.Create(user);
         }
     }
 }
