@@ -171,7 +171,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\LoginFail.cshtml" />
     <Content Include="Views\Account\LoginSuccess.cshtml" />
-    <Content Include="Views\Account\RegisterFailed.cshtml" />
+    <Content Include="Views\Account\RegisterFail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

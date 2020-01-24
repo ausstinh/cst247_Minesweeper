@@ -23,13 +23,17 @@ namespace cst247_Minesweeper.Controllers
         {
             AccountBusinessService bs = new AccountBusinessService();
 
-            if (bs.Authenticate(user))
+            // -1 means login failed
+            int loggedInId = bs.Authenticate(user);
+
+            if (loggedInId != -1)
             {
+                Session["user_id"] = loggedInId;
                 return View("~/Views/Home/Index.cshtml",  user);
             }
             else
             {
-                return View("LoginFailed");
+                return View("LoginFail");
             }
         }
 
@@ -44,8 +48,15 @@ namespace cst247_Minesweeper.Controllers
             }
             else
             {
-                return View("RegisterFailed");
+                return View("RegisterFail");
             }
+        }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            Session["user_id"] = null;
+            return View("Login");
         }
     }
 }
