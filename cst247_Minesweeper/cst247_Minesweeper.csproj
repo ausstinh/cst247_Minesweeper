@@ -171,10 +171,10 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\LoginFail.cshtml" />
     <Content Include="Views\Account\LoginSuccess.cshtml" />
+    <Content Include="Views\Account\RegisterFailed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
