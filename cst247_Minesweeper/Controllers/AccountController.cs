@@ -6,12 +6,17 @@ namespace cst247_Minesweeper.Controllers
 {
     public class AccountController : Controller
     {
-        // GET: Account
+       
         public ActionResult Index()
         {
             return View("Login");
         }
-
+      
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View("Register");
+        }
         [HttpPost]
         public ActionResult Login(UserModel user)
         {
@@ -19,7 +24,7 @@ namespace cst247_Minesweeper.Controllers
 
             if (bs.Authenticate(user))
             {
-                return View("LoginSuccess", user);
+                return View("Index", user);
             }
             else
             {
