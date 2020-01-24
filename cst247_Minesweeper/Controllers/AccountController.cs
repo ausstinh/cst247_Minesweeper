@@ -17,6 +17,7 @@ namespace cst247_Minesweeper.Controllers
         {
             return View("Register");
         }
+
         [HttpPost]
         public ActionResult Login(UserModel user)
         {
@@ -24,7 +25,7 @@ namespace cst247_Minesweeper.Controllers
 
             if (bs.Authenticate(user))
             {
-                return View("Index", user);
+                return View("~/Views/Home/Index.cshtml",  user);
             }
             else
             {
