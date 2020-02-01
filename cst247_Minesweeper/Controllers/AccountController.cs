@@ -29,7 +29,7 @@ namespace cst247_Minesweeper.Controllers
             if (loggedInId != -1)
             {
                 Session["user_id"] = loggedInId;
-                return View("~/Views/Home/Index.cshtml",  user);
+                return View("~/Views/Game/Index.cshtml");
             }
             else
             {
