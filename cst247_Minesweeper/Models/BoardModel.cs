@@ -11,8 +11,8 @@ namespace cst247_Minesweeper.Models
         public int size { get; set; }
         public int difficultyPercent { get; set; }
         public CellModel[,] TheGrid { get; set; }
-
         public int revealCounter { get; set; }
+        public int flags { get; set; }
 
         public BoardModel(int size)
         {

@@ -132,6 +132,8 @@
     <Compile Include="Models\data\AccountDataService.cs" />
     <Compile Include="Models\data\DataServiceInterface.cs" />
     <Compile Include="Models\DifficultyModel.cs" />
+    <Compile Include="Models\GameModel.cs" />
+    <Compile Include="Models\ScoreModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -175,6 +177,7 @@
     <Content Include="Views\Account\LoginSuccess.cshtml" />
     <Content Include="Views\Account\RegisterFail.cshtml" />
     <Content Include="Views\Game\Index.cshtml" />
+    <Content Include="Views\Game\Board.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,31 @@
+﻿@model cst247_Minesweeper.Models.GameModel
+
+@{
+    ViewBag.Title = "Minesweeper";
+}
+
+<!DOCTYPE html>
+
+<html>
+<body>
+    <div>
+        @using (Html.BeginForm("onReveal", "Game"))
+        {
+            for (int c = 0; c < Model.Board.size; c++)
+            {
+                for (int r = 0; r < Model.Board.size; r++)
+                {
+        <button type="submit" name="mine" value=@Model.Board.TheGrid[c, r]>
+            @if (Model.Board.TheGrid[c, r].revealed && !Model.Board.TheGrid[c, r].bomb)
+            {
+                Model.Board.TheGrid[c, r].neighbors.ToString();
+            }
+        </button>
+                }
+            }
+        }
+
+
+    </div>
+</body>
+</html>
