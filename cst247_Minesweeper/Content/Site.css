@@ -22,3 +22,24 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.mine {
+    background-color: #d3d3d3;
+    border: none;
+    color: white;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    height: 35px;
+    width: 35px;
+    margin: 1px;
+    line-height: 53px;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+}

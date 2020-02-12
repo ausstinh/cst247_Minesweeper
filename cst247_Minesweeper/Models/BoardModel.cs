@@ -8,78 +8,104 @@ namespace cst247_Minesweeper.Models
     public class BoardModel
     {
 
-        public int size { get; set; }
-        public int difficultyPercent { get; set; }
+        public int Size { get; set; }
+        public int DifficultyPercent { get; set; }
         public CellModel[,] TheGrid { get; set; }
-        public int revealCounter { get; set; }
-        public int flags { get; set; }
+        public int RevealCounter { get; set; }
+        public int Flags { get; set; }
 
         public BoardModel(int size)
         {
+            if (size == 0)
+            {
+                size = 7;
+                this.DifficultyPercent = 15;
+            }
+            else if (size == 1)
+            {
+                size = 9;
+                this.DifficultyPercent = 18;
+            }
+            else
+            {
+                size = 12;
+                this.DifficultyPercent = 22;
+            }
+            this.Size = size;
+
             //difficultyPercent = Global.difficulty;
-            revealCounter = 0;
-            this.size = size;
+            RevealCounter = 0;
 
             TheGrid = new CellModel[size, size];
 
             // filling 2D array with cells
-            for (int i = 0; i < size; i++)
-            {
-                for (int j = 0; j < size; j++)
-                {
-                    TheGrid[i, j] = new CellModel(i, j);
-                }
-            }
-        }
-
-        public void setupLiveNeighbors()
-        {
-            Random rnd = new Random();
-            int amntBombs = (size * size * difficultyPercent) / 100;
-            int count = 0;
-            int row = -1;
-            int col = -1;
-
-            while (amntBombs > count)
-            {
-                row = rnd.Next(0, size);
-                col = rnd.Next(0, size);
-                if (TheGrid[row, col].bomb == false)
-                {
-                    TheGrid[row, col].bomb = true;
-                    count++;
-                }
-            }
-
             for (int y = 0; y < size; y++)
             {
                 for (int x = 0; x < size; x++)
                 {
+                    TheGrid[y, x] = new CellModel(y, x);
+
+                }
+            }
+
+            setupBombsAndNeighbors();
+        }
+
+        public void setupBombsAndNeighbors()
+        {
+            Random rnd = new Random();
+            int amntBombs = (Size * Size * DifficultyPercent) / 100;
+            int count = 0;
+            int row = -1;
+            int col = -1;
+            while (amntBombs > count)
+            {
+                row = rnd.Next(0, Size);
+                col = rnd.Next(0, Size);
+                if (TheGrid[row, col].Bomb == false)
+                {
+                    TheGrid[row, col].Bomb = true;
+                    count++;
+                }
+            }
+
+            for (int y = 0; y < Size; y++)
+            {
+                for (int x = 0; x < Size; x++)
+                {
                     CellModel c = TheGrid[y, x];
-                    c.neighbors = 0;
-                    if (inRange(c.x, c.y + 1) && TheGrid[c.x, c.y + 1].bomb == true)
-                        c.neighbors++;
-                    if (inRange(c.x + 1, c.y + 1) && TheGrid[c.x + 1, c.y + 1].bomb == true)
-                        c.neighbors++;
-                    if (inRange(c.x + 1, c.y) && TheGrid[c.x + 1, c.y].bomb == true)
-                        c.neighbors++;
-                    if (inRange(c.x + 1, c.y - 1) && TheGrid[c.x + 1, c.y - 1].bomb == true)
-                        c.neighbors++;
-                    if (inRange(c.x, c.y - 1) && TheGrid[c.x, c.y - 1].bomb == true)
-                        c.neighbors++;
-                    if (inRange(c.x - 1, c.y - 1) && TheGrid[c.x - 1, c.y - 1].bomb == true)
-                        c.neighbors++;
-                    if (inRange(c.x - 1, c.y) && TheGrid[c.x - 1, c.y].bomb == true)
-                        c.neighbors++;
-                    if (inRange(c.x - 1, c.y + 1) && TheGrid[c.x - 1, c.y + 1].bomb == true)
-                        c.neighbors++;
+                    c.Neighbors = 0;
+                    // N
+                    if (inRange(c.Y + 1, c.X) && TheGrid[c.Y + 1, c.X].Bomb == true)
+                        c.Neighbors++;
+                    // NE
+                    if (inRange(c.Y + 1, c.X + 1) && TheGrid[c.Y + 1, c.X + 1].Bomb == true)
+                        c.Neighbors++;
+                    // E
+                    if (inRange(c.Y, c.X + 1) && TheGrid[c.Y, c.X + 1].Bomb == true)
+                        c.Neighbors++;
+                    // SE
+                    if (inRange(c.Y - 1, c.X + 1) && TheGrid[c.Y - 1, c.X + 1].Bomb == true)
+                        c.Neighbors++;
+                    // S
+                    if (inRange(c.Y - 1, c.X) && TheGrid[c.Y - 1, c.X].Bomb == true)
+                        c.Neighbors++;
+                    // SW
+                    if (inRange(c.Y - 1, c.X - 1) && TheGrid[c.Y - 1, c.X - 1].Bomb == true)
+                        c.Neighbors++;
+                    // W
+                    if (inRange(c.Y, c.X - 1) && TheGrid[c.Y, c.X - 1].Bomb == true)
+                        c.Neighbors++;
+                    // NW
+                    if (inRange(c.Y + 1, c.X - 1) && TheGrid[c.Y + 1, c.X - 1].Bomb == true)
+                        c.Neighbors++;
                 }
             }
         }
 
         private bool inRange(int y, int x)
         {
-            if (x >= 0 && x < size && y >= 0 && y < size)
+            if (x >= 0 && x < Size && y >= 0 && y < Size)
             {
                 return true;
             }
@@ -89,20 +115,20 @@ namespace cst247_Minesweeper.Models
             }
         }
 
-        public bool revealOneCell(int y, int x)
+        public bool revealOneCell(CellModel mine)
         {
-            if (TheGrid[y, x].flagged == false)
+            if (!mine.Flagged)
             {
-                if (TheGrid[y, x].revealed == false)
+                if (!mine.Revealed)
                 {
                     // game over if bomb
-                    if (TheGrid[y, x].bomb == true)
+                    if (mine.Bomb)
                     {
                         // true = game over
                         return true;
                     }
                     // flood fill
-                    floodFillCellAndAround(y, x);
+                    floodFillCellAndAround(mine.Y, mine.X);
                 }
             }
             // false = not game over
@@ -111,13 +137,13 @@ namespace cst247_Minesweeper.Models
 
         public void floodFillCellAndAround(int y, int x)
         {
-            if (inRange(y, x) && TheGrid[y, x].revealed == false)
+            if (inRange(y, x) && !TheGrid[y, x].Revealed)
             {
                 // reveal cell and add to counter
-                TheGrid[y, x].revealed = true;
-                revealCounter++;
+                TheGrid[y, x].Revealed = true;
+                RevealCounter++;
 
-                if (TheGrid[y, x].neighbors == 0)
+                if (TheGrid[y, x].Neighbors == 0)
                 {
                     floodFillCellAndAround(y + 1, x - 1);
                     floodFillCellAndAround(y + 1, x);
@@ -134,7 +160,7 @@ namespace cst247_Minesweeper.Models
 
         public int getAmntBombs()
         {
-            return (size * size * difficultyPercent) / 100;
+            return (Size * Size * DifficultyPercent) / 100;
         }
 
     }

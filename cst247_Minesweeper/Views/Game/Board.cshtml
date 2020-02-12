@@ -8,20 +8,52 @@
 
 <html>
 <body>
-    <div>
-        @using (Html.BeginForm("onReveal", "Game"))
+    <div class="flex-container">
+        @using (Html.BeginForm("onReveal", "Game", FormMethod.Post))
         {
-            for (int c = 0; c < Model.Board.size; c++)
+            for (int y = 0; y < Model.Board.Size; y++)
             {
-                for (int r = 0; r < Model.Board.size; r++)
+                for (int x = 0; x < Model.Board.Size; x++)
                 {
-        <button type="submit" name="mine" value=@Model.Board.TheGrid[c, r]>
-            @if (Model.Board.TheGrid[c, r].revealed && !Model.Board.TheGrid[c, r].bomb)
-            {
-                Model.Board.TheGrid[c, r].neighbors.ToString();
-            }
-        </button>
+                    string str = y + "|" + x;
+                    if (!Model.Board.TheGrid[y, x].Revealed)
+                    {
+                        <button class="mine" type="submit" name="coords" value=@str>
+                            @{ if (Model.Board.TheGrid[y, x].Revealed && !Model.Board.TheGrid[y, x].Bomb)
+                                {
+                                    <p>@Model.Board.TheGrid[y, x].Neighbors.ToString()</p>
+                                }
+                                else if (Model.Board.TheGrid[y, x].Bomb)
+                                {
+                                    <p>B</p>
+                                }
+                                else
+                                {
+                                    <p>U</p>
+                                }}
+
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="mine" type="submit" name="coords" value=@str disabled>
+                            @{ if (Model.Board.TheGrid[y, x].Revealed && !Model.Board.TheGrid[y, x].Bomb)
+                                {
+                                    <p>@Model.Board.TheGrid[y, x].Neighbors.ToString()</p>
+                                }
+                                else if (Model.Board.TheGrid[y, x].Bomb)
+                                {
+                                    <p>B</p>
+                                }
+                                else
+                                {
+                                    <p>U</p>
+                                }}
+
+                        </button>
+                    }
                 }
+                <br />
             }
         }
 

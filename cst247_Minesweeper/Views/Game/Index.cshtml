@@ -1,6 +1,5 @@
 ﻿@if (Session["user_id"] != null)
 {
-    @model cst247_Minesweeper.Models.DifficultyModel
 
     {
         ViewBag.Title = "Difficulty Selector";
@@ -15,8 +14,10 @@
         <div class="form-horizontal">
             <hr />
             <div class="form-group">
-                @Html.LabelFor(model => model.Difficulty, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EnumDropDownListFor(model => model.Difficulty, new { htmlAttributes = new { @class = "form-control" } })
+                <p>Please select a difficulty:</p>
+                <input type="radio" name="size" value="0">Easy<br>
+                <input type="radio" name="size" value="1">Medium<br>
+                <input type="radio" name="size" value="2">Hard<br>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Continue" class="btn btn-default" />

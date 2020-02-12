@@ -131,7 +131,6 @@
     <Compile Include="Models\CellModel.cs" />
     <Compile Include="Models\data\AccountDataService.cs" />
     <Compile Include="Models\data\DataServiceInterface.cs" />
-    <Compile Include="Models\DifficultyModel.cs" />
     <Compile Include="Models\GameModel.cs" />
     <Compile Include="Models\ScoreModel.cs" />
     <Compile Include="Models\UserModel.cs" />

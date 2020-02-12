@@ -9,6 +9,8 @@ namespace cst247_Minesweeper.Controllers
 {
     public class GameController : Controller
     {
+        public static GameModel game;
+
         // GET: Game
         public ActionResult Index()
         {
@@ -16,28 +18,31 @@ namespace cst247_Minesweeper.Controllers
         }
 
         [HttpPost]
-        public ActionResult SetDifficulty(DifficultyModel difficulty)
+        public ActionResult SetDifficulty(int size)
         {
-            int difficultyInt = (int)difficulty.Difficulty;
-            Session["difficulty"] = difficultyInt;
+            game = new GameModel();
+            game.Size = size;
 
             // create board
             // pass board
             BoardModel board;
-            if (difficultyInt == 0)
-            {
-                board = new BoardModel(5);
-            }
-            else if (difficultyInt == 1)
-            {
-                board = new BoardModel(8);
-            }
-            else
-            {
-                board = new BoardModel(10);
-            }
-            GameModel game = new GameModel();
+
+            board = new BoardModel(size);
+
             game.Board = board;
+
+            return View("~/Views/Game/Board.cshtml", game);
+
+        }
+
+        [HttpPost]
+        public ActionResult onReveal(string coords)
+        {
+            string[] array = coords.Split('|');
+            int y = int.Parse(array[0]);
+            int x = int.Parse(array[1]);
+
+            game.Board.revealOneCell(game.Board.TheGrid[y, x]);
 
             return View("~/Views/Game/Board.cshtml", game);
 

@@ -8,32 +8,32 @@ namespace cst247_Minesweeper.Models
     public class CellModel
     {
 
-        public int x { get; set; }
-        public int y { get; set; }
-        public int neighbors { get; set; }
-        public bool bomb { get; set; }
-        public bool revealed { get; set; }
-        public bool flagged { get; set; }
+        public int Y { get; set; }
+        public int X { get; set; }
+        public int Neighbors { get; set; }
+        public bool Bomb { get; set; }
+        public bool Revealed { get; set; }
+        public bool Flagged { get; set; }
 
         // default constructor
         public CellModel()
         {
-            x = -1;
-            y = -1;
-            neighbors = 0;
-            bomb = false;
-            revealed = false;
-            flagged = false;
+            X = -1;
+            Y = -1;
+            Neighbors = 0;
+            Bomb = false;
+            Revealed = false;
+            Flagged = false;
         }
 
-        public CellModel(int x, int y)
+        public CellModel(int y, int x)
         {
-            this.x = x;
-            this.y = y;
-            neighbors = 0;
-            bomb = false;
-            revealed = false;
-            flagged = false;
+            this.Y = y;
+            this.X = x;
+            Neighbors = 0;
+            Bomb = false;
+            Revealed = false;
+            Flagged = false;
         }
 
     }
