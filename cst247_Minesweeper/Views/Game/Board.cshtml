@@ -19,17 +19,18 @@
                     if (!Model.Board.TheGrid[y, x].Revealed)
                     {
                         <button class="mine" type="submit" name="coords" value=@str>
+                            <p>_</p>
                             @{ if (Model.Board.TheGrid[y, x].Revealed && !Model.Board.TheGrid[y, x].Bomb)
                                 {
-                                    <p>@Model.Board.TheGrid[y, x].Neighbors.ToString()</p>
+                                    <!--<p>//Model.Board.TheGrid[y, x].Neighbors.ToString()</p>-->
                                 }
                                 else if (Model.Board.TheGrid[y, x].Bomb)
                                 {
-                                    <p>B</p>
+                                    <!--<p>B</p>-->
                                 }
                                 else
                                 {
-                                    <p>U</p>
+                                    <!--<p>U</p>-->
                                 }}
 
                         </button>

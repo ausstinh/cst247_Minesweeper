@@ -1,4 +1,5 @@
 ﻿using cst247_Minesweeper.Models;
+using cst247_Minesweeper.Models.business;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,15 +22,12 @@ namespace cst247_Minesweeper.Controllers
         public ActionResult SetDifficulty(int size)
         {
             game = new GameModel();
-            game.Size = size;
 
-            // create board
-            // pass board
-            BoardModel board;
-
-            board = new BoardModel(size);
-
+            BoardModel board = new BoardModel(size);
             game.Board = board;
+
+            GameBusinessService bs = new GameBusinessService(game);
+            game.Board = bs.setupBombsAndNeighbors();
 
             return View("~/Views/Game/Board.cshtml", game);
 
@@ -42,7 +40,9 @@ namespace cst247_Minesweeper.Controllers
             int y = int.Parse(array[0]);
             int x = int.Parse(array[1]);
 
-            game.Board.revealOneCell(game.Board.TheGrid[y, x]);
+            GameBusinessService bs = new GameBusinessService(game);
+
+            game.Board = bs.revealOneCell(game.Board.TheGrid[y, x]);
 
             return View("~/Views/Game/Board.cshtml", game);
 
