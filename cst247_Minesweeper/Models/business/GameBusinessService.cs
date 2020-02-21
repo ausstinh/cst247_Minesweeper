@@ -19,6 +19,9 @@ namespace cst247_Minesweeper.Models.business
         {
             Random rnd = new Random();
             int amntBombs = (Board.Size * Board.Size * Board.DifficultyPercent) / 100;
+            Board.amntBombs = amntBombs;
+            Board.Flags = amntBombs;
+
             int count = 0;
             int row = -1;
             int col = -1;
@@ -94,7 +97,7 @@ namespace cst247_Minesweeper.Models.business
             {
                 // reveal cell and add to counter
                 Board.TheGrid[y, x].Revealed = true;
-                //RevealCounter++;
+                Board.RevealCounter++;
 
                 if (Board.TheGrid[y, x].Neighbors == 0)
                 {
@@ -122,5 +125,18 @@ namespace cst247_Minesweeper.Models.business
                 return false;
             }
         }
+
+        public bool gameWin()
+        {
+            int nonBombs = (Board.Size * Board.Size) - Board.amntBombs;
+
+            if(Board.RevealCounter == nonBombs)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

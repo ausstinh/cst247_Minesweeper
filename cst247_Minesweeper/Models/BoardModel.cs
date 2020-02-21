@@ -13,6 +13,7 @@ namespace cst247_Minesweeper.Models
         public CellModel[,] TheGrid { get; set; }
         public int RevealCounter { get; set; }
         public int Flags { get; set; }
+        public int amntBombs { get; set; }
 
         public BoardModel(int size)
         {
@@ -32,7 +33,6 @@ namespace cst247_Minesweeper.Models
                 DifficultyPercent = 22;
             }
 
-            //difficultyPercent = Global.difficulty;
             RevealCounter = 0;
 
             TheGrid = new CellModel[Size, Size];

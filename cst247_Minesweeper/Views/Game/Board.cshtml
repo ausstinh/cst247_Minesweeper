@@ -8,6 +8,17 @@
 
 <html>
 <body>
+    <div class="gameInfo">
+        <div>
+            <h4>Bombs Left</h4>
+            <p>@Model.Board.Flags</p>
+        </div>
+        <div>
+            <h4>Time</h4>
+            <p>@Model.Stopwatch.Elapsed.ToString()</p>
+        </div>
+    </div>
+
     <div class="flex-container">
         @using (Html.BeginForm("onReveal", "Game", FormMethod.Post))
         {
@@ -20,19 +31,6 @@
                     {
                         <button class="mine" type="submit" name="coords" value=@str>
                             <p>_</p>
-                            @{ if (Model.Board.TheGrid[y, x].Revealed && !Model.Board.TheGrid[y, x].Bomb)
-                                {
-                                    <!--<p>//Model.Board.TheGrid[y, x].Neighbors.ToString()</p>-->
-                                }
-                                else if (Model.Board.TheGrid[y, x].Bomb)
-                                {
-                                    <!--<p>B</p>-->
-                                }
-                                else
-                                {
-                                    <!--<p>U</p>-->
-                                }}
-
                         </button>
                     }
                     else

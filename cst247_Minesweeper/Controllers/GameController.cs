@@ -2,6 +2,7 @@
 using cst247_Minesweeper.Models.business;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -29,6 +30,9 @@ namespace cst247_Minesweeper.Controllers
             GameBusinessService bs = new GameBusinessService(game);
             game.Board = bs.setupBombsAndNeighbors();
 
+            game.Stopwatch = new Stopwatch();
+            game.Stopwatch.Start();
+
             return View("~/Views/Game/Board.cshtml", game);
 
         }
@@ -44,6 +48,18 @@ namespace cst247_Minesweeper.Controllers
 
             game.Board = bs.revealOneCell(game.Board.TheGrid[y, x]);
 
+            if (game.Board.TheGrid[y, x].Bomb)
+            {
+                game.Stopwatch.Stop();
+                return View("~/Views/Game/Loss.cshtml", game);
+            }
+
+            if (bs.gameWin())
+            {
+                game.Stopwatch.Stop();
+                return View("~/Views/Game/Scores.cshtml", game);
+            }
+          
             return View("~/Views/Game/Board.cshtml", game);
 
         }

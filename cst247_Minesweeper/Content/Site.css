@@ -24,22 +24,27 @@ textarea {
 }
 
 .mine {
-    background-color: #d3d3d3;
+    background-color: rgb(37, 39, 41);
     border: none;
-    color: white;
+    color: rgb(255, 255, 255);
     padding: 5px 5px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 12px;
-    height: 35px;
-    width: 35px;
+    font-size: 20px;
+    height: 65px;
+    width: 65px;
     margin: 1px;
     line-height: 53px;
 }
 
 .flex-container {
-    display: flex;
+    display: inline-flex;
     flex-wrap: wrap;
-    background-color: white;
+    background-color: rgb(24, 26, 27);
+}
+
+body {
+    color: rgb(214, 211, 205);
+    background-color: rgb(24, 26, 27);
 }

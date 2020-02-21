@@ -178,6 +178,7 @@
     <Content Include="Views\Account\RegisterFail.cshtml" />
     <Content Include="Views\Game\Index.cshtml" />
     <Content Include="Views\Game\Board.cshtml" />
+    <Content Include="Views\Game\Loss.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
