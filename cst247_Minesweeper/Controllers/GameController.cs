@@ -60,7 +60,7 @@ namespace cst247_Minesweeper.Controllers
                 return View("~/Views/Game/Scores.cshtml", game);
             }
           
-            return View("~/Views/Game/Board.cshtml", game);
+            return PartialView("~/Views/Game/_boardInfo.cshtml", game);
 
         }
     }

@@ -1,62 +1,26 @@
 ﻿@model cst247_Minesweeper.Models.GameModel
 
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
     ViewBag.Title = "Minesweeper";
+
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "game"
+    };
 }
 
-<!DOCTYPE html>
 
 <html>
 <body>
-    <div class="gameInfo">
-        <div>
-            <h4>Bombs Left</h4>
-            <p>@Model.Board.Flags</p>
-        </div>
-        <div>
-            <h4>Time</h4>
-            <p>@Model.Stopwatch.Elapsed.ToString()</p>
-        </div>
-    </div>
-
-    <div class="flex-container">
-        @using (Html.BeginForm("onReveal", "Game", FormMethod.Post))
+    <div id="game">
+        @using (Ajax.BeginForm("onReveal", "Game", ajaxOptions))
         {
-            for (int y = 0; y < Model.Board.Size; y++)
-            {
-                for (int x = 0; x < Model.Board.Size; x++)
-                {
-                    string str = y + "|" + x;
-                    if (!Model.Board.TheGrid[y, x].Revealed)
-                    {
-                        <button class="mine" type="submit" name="coords" value=@str>
-                            <p>_</p>
-                        </button>
-                    }
-                    else
-                    {
-                        <button class="mine" type="submit" name="coords" value=@str disabled>
-                            @{ if (Model.Board.TheGrid[y, x].Revealed && !Model.Board.TheGrid[y, x].Bomb)
-                                {
-                                    <p>@Model.Board.TheGrid[y, x].Neighbors.ToString()</p>
-                                }
-                                else if (Model.Board.TheGrid[y, x].Bomb)
-                                {
-                                    <p>B</p>
-                                }
-                                else
-                                {
-                                    <p>U</p>
-                                }}
-
-                        </button>
-                    }
-                }
-                <br />
-            }
+            @Html.Partial("~/Views/Game/_boardInfo.cshtml", Model)
         }
-
-
     </div>
 </body>
 </html>
