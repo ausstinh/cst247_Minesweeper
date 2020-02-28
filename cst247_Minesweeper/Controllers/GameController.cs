@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Ajax;
 
 namespace cst247_Minesweeper.Controllers
 {
@@ -59,8 +60,17 @@ namespace cst247_Minesweeper.Controllers
                 game.Stopwatch.Stop();
                 return View("~/Views/Game/Scores.cshtml", game);
             }
-          
-            return PartialView("~/Views/Game/_boardInfo.cshtml", game);
+
+            AjaxOptions ajaxOptions = new AjaxOptions
+            {
+                HttpMethod = "POST",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "game"
+            };
+
+            Tuple<GameModel, AjaxOptions> tuple = new Tuple<GameModel, AjaxOptions>(game, ajaxOptions);
+
+            return PartialView("~/Views/Game/_boardInfo.cshtml", tuple);
 
         }
     }
