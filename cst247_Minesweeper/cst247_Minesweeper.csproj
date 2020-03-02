@@ -181,9 +181,8 @@
     <Content Include="Views\Game\Loss.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
-    <Content Include="Views\Game\_bombInfo.cshtml" />
-    <Content Include="Views\Game\_timeInfo.cshtml" />
     <Content Include="Views\Game\_boardInfo.cshtml" />
+    <Content Include="Views\Game\Scores.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
