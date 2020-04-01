@@ -17,8 +17,8 @@
                 }
                 @if (Session["user_id"] != null)
                 {
-                    <li>@Html.ActionLink("New Game", "Index", "Game")</li>
-                    <li>@Html.ActionLink("High Scores", "Method", "Controller")</li>
+                    <li>@Html.ActionLink("Play Game", "Index", "Game")</li>
+                    <li>@Html.ActionLink("High Scores", "OnGetHighScores", "Game")</li>
                     <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
                 }
             </ul>

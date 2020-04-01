@@ -1,0 +1,16 @@
+﻿@using cst247_Minesweeper.Models
+@model cst247_Minesweeper.Models.ScoreModel
+
+@{
+    ViewBag.Title = "You Win";
+}
+
+<h2>Congratulations</h2>
+
+<h3>Your score was @Model.Score</h3>
+
+<div>
+    Click <a href="@Url.Action("Index", "Game")">here</a> to try again
+    <br />
+    Click <a href="@Url.Action("OnGetHighScores", "Game")">here</a> to view High Scores
+</div>

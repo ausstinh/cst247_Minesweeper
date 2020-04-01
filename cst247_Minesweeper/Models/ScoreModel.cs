@@ -5,31 +5,30 @@ using System.Web;
 
 namespace cst247_Minesweeper.Models
 {
-    public class ScoreModel
+    public class ScoreModel : IComparable<ScoreModel>
     {
-        public int time { get; set; }
-        public int difficulty { get; set; }
-        public int name { get; set; }
-        public int score { get; set; }
+        public int Id { get; set; }
+        public int Score { get; set; }
+        public int Difficulty { get; set; }
+        public int UserId { get; set; }
 
-        public void calculateScore()
+        // only used for high score
+        public string UserName { get; set; }
+
+        public ScoreModel(int score, int difficulty, int userId)
         {
-            if (difficulty == 0)
+            Score = score;
+            Difficulty = difficulty;
+            UserId = userId;
+        }
+
+        public int CompareTo(ScoreModel otherScore)
+        {
+            if(this.Score == otherScore.Score)
             {
-                score = (200 - time) * 10;
+                return this.Score.CompareTo(otherScore.Score);
             }
-            else if (difficulty == 1)
-            {
-                score = (200 - time) * 20;
-            }
-            else if (difficulty == 2)
-            {
-                score =(200 - time) * 50;
-            }
-            else
-            {
-                score = 0;
-            }
+            return otherScore.Score.CompareTo(this.Score);
         }
     }
 }

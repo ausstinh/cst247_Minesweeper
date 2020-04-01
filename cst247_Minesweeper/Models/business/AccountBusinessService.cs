@@ -19,5 +19,15 @@ namespace cst247_Minesweeper.Models.business
         {
             return ds.Create(user);
         }
+
+        public UserModel getUser(int id)
+        {
+            return ds.Read(id);
+        }
+
+        public bool UpdateUser(UserModel user)
+        {
+            return ds.Update(user);
+        }
     }
 }

@@ -49,6 +49,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -129,9 +130,10 @@
     <Compile Include="Models\BoardModel.cs" />
     <Compile Include="Models\business\GameBusinessService.cs" />
     <Compile Include="Models\business\AccountBusinessService.cs" />
+    <Compile Include="Models\data\ScoreDataService.cs" />
     <Compile Include="Models\CellModel.cs" />
+    <Compile Include="Models\data\ActiveGameDataService.cs" />
     <Compile Include="Models\data\AccountDataService.cs" />
-    <Compile Include="Models\data\DataServiceInterface.cs" />
     <Compile Include="Models\GameModel.cs" />
     <Compile Include="Models\ScoreModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -182,7 +184,8 @@
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Game\_boardInfo.cshtml" />
-    <Content Include="Views\Game\Scores.cshtml" />
+    <Content Include="Views\Game\Win.cshtml" />
+    <Content Include="Views\Game\HighScores.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

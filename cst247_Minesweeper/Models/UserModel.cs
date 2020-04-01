@@ -33,5 +33,38 @@ namespace cst247_Minesweeper.Models
         public string Sex { get; set; }
         public string Age { get; set; }
         public string State { get; set; }
+        public int ActiveGameId { get; set; }
+
+        public UserModel()
+        {
+        }
+
+        public UserModel(int id, string firstName, string lastName, string userName, string password, string email, string sex, string age, string state)
+        {
+            Id = id;
+            FirstName = firstName;
+            LastName = lastName;
+            UserName = userName;
+            Password = password;
+            Email = email;
+            Sex = sex;
+            Age = age;
+            State = state;
+            ActiveGameId = -1;
+        }
+
+        public UserModel(int id, string firstName, string lastName, string userName, string password, string email, string sex, string age, string state, int activeGameId)
+        {
+            Id = id;
+            FirstName = firstName;
+            LastName = lastName;
+            UserName = userName;
+            Password = password;
+            Email = email;
+            Sex = sex;
+            Age = age;
+            State = state;
+            ActiveGameId = activeGameId;
+        }
     }
 }

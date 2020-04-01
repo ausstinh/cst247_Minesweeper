@@ -1,36 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Web;
 
 namespace cst247_Minesweeper.Models
 {
+    [DataContract]
     public class BoardModel
     {
-
+        [DataMember]
         public int Size { get; set; }
+
+        [DataMember]
+        public int Difficulty { get; set; }
+
+        [DataMember]
         public int DifficultyPercent { get; set; }
+
+        [DataMember]
         public CellModel[,] TheGrid { get; set; }
+
+        [DataMember]
         public int RevealCounter { get; set; }
+
+        [DataMember]
         public int Flags { get; set; }
+
+        [DataMember]
         public int amntBombs { get; set; }
 
-        public BoardModel(int size)
+        public BoardModel(int difficulty)
         {
-            if (size == 0)
+            Difficulty = difficulty;
+            if (difficulty == 0)
             {
                 Size = 7;
                 DifficultyPercent = 15;
             }
-            else if (size == 1)
+            else if (difficulty == 1)
             {
                 Size = 9;
-                DifficultyPercent = 18;
+                DifficultyPercent = 17;
+            }
+            else if (difficulty == 2)
+            {
+                Size = 12;
+                DifficultyPercent = 19;
             }
             else
             {
-                Size = 12;
-                DifficultyPercent = 22;
+                Size = 0;
+                DifficultyPercent = 0;
             }
 
             RevealCounter = 0;

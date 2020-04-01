@@ -29,7 +29,7 @@ namespace cst247_Minesweeper.Controllers
             if (loggedInId != -1)
             {
                 Session["user_id"] = loggedInId;
-                return View("~/Views/Game/Index.cshtml");
+                return View("~/Views/Home/Index.cshtml");
             }
             else
             {
@@ -41,6 +41,8 @@ namespace cst247_Minesweeper.Controllers
         public ActionResult Register(UserModel user)
         {
             AccountBusinessService bs = new AccountBusinessService();
+
+            user.ActiveGameId = -1;
 
             if (bs.Register(user))
             {

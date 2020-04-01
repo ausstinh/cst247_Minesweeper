@@ -17,6 +17,14 @@
 
 <html>
 <body>
+    <div>
+        @using (Html.BeginForm("OnSaveGame", "Game"))
+        {
+            <button class="save" type="submit">
+                Save Gane
+            </button>
+        }
+    </div>
     <div id="game">
         @{
             Tuple<GameModel, AjaxOptions> tuple = new Tuple<GameModel, AjaxOptions>(Model, ajaxOptions);
