@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cst247_Minesweeper", "cst247_Minesweeper\cst247_Minesweeper.csproj", "{70C5B2F0-4244-4629-B138-D5733688543E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameService", "GameService\GameService.csproj", "{11416466-4D98-4981-A088-76DA97E387AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighScoreService", "GameService\HighScoreService.csproj", "{11416466-4D98-4981-A088-76DA97E387AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

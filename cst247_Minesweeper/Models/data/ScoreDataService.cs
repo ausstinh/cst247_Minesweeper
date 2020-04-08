@@ -48,7 +48,34 @@ namespace cst247_Minesweeper.Models.data
 
         public ScoreModel Read(int id)
         {
-            throw new NotImplementedException();
+            ScoreModel score = null;
+
+            string queryString = "SELECT * FROM dbo.scores WHERE ID = @ID";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add("@ID", System.Data.SqlDbType.Int).Value = id;
+
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        reader.Read();
+                        score = new ScoreModel(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2));
+                    }
+                    reader.Close();
+                    connection.Close();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+            return score;
         }
 
         public List<ScoreModel> ReadAll()

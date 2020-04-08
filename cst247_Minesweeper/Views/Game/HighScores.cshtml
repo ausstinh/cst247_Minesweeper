@@ -1,5 +1,5 @@
 ﻿@using cst247_Minesweeper.Models
-@model IEnumerable<ScoreModel>
+@model List<IEnumerable<ScoreModel>>
 
 @{
     ViewBag.Title = "High Scores";
@@ -8,17 +8,56 @@
 <h2>High Scores</h2>
 
 <div>
+    <h3>Easy</h3>
     <table>
         <tr>
             <th>Score</th>
             <th>Difficulty</th>
             <th>Username</th>
         </tr>
-        @foreach (var score in Model)
+        @foreach (var score in Model[0])
         {
             <tr>
                 <th>@score.Score</th>
-                <th>@score.Difficulty</th>
+                <th>Easy</th>
+                <th>@score.UserName</th>
+            </tr>
+        }
+    </table>
+</div>
+
+<div>
+    <h3>Medium</h3>
+    <table>
+        <tr>
+            <th>Score</th>
+            <th>Difficulty</th>
+            <th>Username</th>
+        </tr>
+        @foreach (var score in Model[1])
+        {
+            <tr>
+                <th>@score.Score</th>
+                <th>Medium</th>
+                <th>@score.UserName</th>
+            </tr>
+        }
+    </table>
+</div>
+
+<div>
+    <h3>Hard</h3>
+    <table>
+        <tr>
+            <th>Score</th>
+            <th>Difficulty</th>
+            <th>Username</th>
+        </tr>
+        @foreach (var score in Model[2])
+        {
+            <tr>
+                <th>@score.Score</th>
+                <th>Hard</th>
                 <th>@score.UserName</th>
             </tr>
         }

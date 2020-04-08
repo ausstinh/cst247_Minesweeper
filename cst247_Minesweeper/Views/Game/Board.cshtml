@@ -16,16 +16,32 @@
 
 
 <html>
+<head>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    
+</head>
 <body>
-    <div>
-        @using (Html.BeginForm("OnSaveGame", "Game"))
-        {
-            <button class="save" type="submit">
-                Save Gane
-            </button>
-        }
+    <div style="width:400px;">
+        <div style="float: left; width: 130px">
+            @using (Html.BeginForm("OnSaveGame", "Game"))
+            {
+                <button class="btn btn-default" type="submit">
+                    Save Gane
+                </button>
+            }
+        </div>
+        <div style="float: right; width: 225px">
+            @using (Html.BeginForm("OnNewGame", "Game"))
+            {
+                <button class="btn btn-default" type="submit">
+                    New Gane
+                </button>
+            }
+        </div>
     </div>
-    <div id="game">
+    <br />
+    <br />
+    <div class="game" id="game">
         @{
             Tuple<GameModel, AjaxOptions> tuple = new Tuple<GameModel, AjaxOptions>(Model, ajaxOptions);
         }

@@ -1,6 +1,22 @@
 ﻿@using cst247_Minesweeper.Models
 @model  Tuple<GameModel, AjaxOptions>
 
+<script>
+    $(document).ready(function () {
+        $(document).contextmenu(function () {
+            return false;
+        });
+
+        $('.mine').mousedown(function (event) {
+            if (event.which == 3) {
+                $.post("@Url.Action("OnFlag", "Game")", { coords: this.getAttribute("Value") }, function (data) {
+                    $('.game').html(data);
+                });
+            }
+        });
+
+    });
+</script>
 
 <div class="gameInfo">
     <div>
@@ -22,29 +38,30 @@
             for (int x = 0; x < Model.Item1.Board.Size; x++)
             {
                 string str = y + "|" + x;
-                if (!Model.Item1.Board.TheGrid[y, x].Revealed)
+                if (Model.Item1.Board.TheGrid[y, x].Flagged)
                 {
                     <button class="mine" type="submit" name="coords" value=@str>
-                        <p style="color: rgb(37, 39, 41)">_</p>
+                        <img style="width: 55px; height: 55px" src="~/Images/flag.jpg" />
                     </button>
                 }
                 else
                 {
-                    <button class="mine" type="submit" name="coords" value=@str disabled>
-                        @{ if (Model.Item1.Board.TheGrid[y, x].Revealed && !Model.Item1.Board.TheGrid[y, x].Bomb)
-                            {
-                                <p>@Model.Item1.Board.TheGrid[y, x].Neighbors.ToString()</p>
+                    if (!Model.Item1.Board.TheGrid[y, x].Revealed)
+                    {
+                        <button class="mine" type="submit" name="coords" value=@str>
+                            <p style="color: rgb(37, 39, 41)">_</p>
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="mine" type="submit" name="coords" value=@str disabled>
+                            @{ if (Model.Item1.Board.TheGrid[y, x].Revealed && !Model.Item1.Board.TheGrid[y, x].Bomb)
+                                {
+                                    <p>@Model.Item1.Board.TheGrid[y, x].Neighbors.ToString()</p>
+                                }
                             }
-                            else if (Model.Item1.Board.TheGrid[y, x].Bomb)
-                            {
-                                <p>B</p>
-                            }
-                            else
-                            {
-                                <p>U</p>
-                            }}
-
-                    </button>
+                        </button>
+                    }
                 }
             }
             <br />

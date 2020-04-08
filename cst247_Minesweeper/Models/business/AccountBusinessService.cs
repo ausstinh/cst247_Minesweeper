@@ -29,5 +29,12 @@ namespace cst247_Minesweeper.Models.business
         {
             return ds.Update(user);
         }
+
+        public bool ResetActiveGame(int id)
+        {
+            UserModel user = getUser(id);
+            user.ActiveGameId = -1;
+            return UpdateUser(user);
+        }
     }
 }

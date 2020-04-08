@@ -18,18 +18,14 @@ namespace cst247_Minesweeper.Models.data
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.Add("@GAME", System.Data.SqlDbType.VarChar, 40).Value = game;
+                command.Parameters.Add("@GAME", System.Data.SqlDbType.Text).Value = game;
 
                 try
                 {
                     connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
 
-                    if (reader.RecordsAffected > 0)
-                    {
-                        InsertId = (int) command.ExecuteScalar();
-                    }
-                    reader.Close();
+                    InsertId = Convert.ToInt32(command.ExecuteScalar());
+
                     connection.Close();
                 }
                 catch (Exception e)
@@ -47,7 +43,7 @@ namespace cst247_Minesweeper.Models.data
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.Add("@ID", System.Data.SqlDbType.VarChar, 40).Value = id;
+                command.Parameters.Add("@ID", System.Data.SqlDbType.Int).Value = id;
 
                 try
                 {
@@ -78,7 +74,7 @@ namespace cst247_Minesweeper.Models.data
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.Add("@ID", System.Data.SqlDbType.VarChar, 40).Value = id;
+                command.Parameters.Add("@ID", System.Data.SqlDbType.Int).Value = id;
 
                 try
                 {

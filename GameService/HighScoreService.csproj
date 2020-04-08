@@ -61,14 +61,15 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GameService.svc" />
+    <Content Include="HighScoreService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameService.svc.cs">
-      <DependentUpon>GameService.svc</DependentUpon>
+    <Compile Include="DTO.cs" />
+    <Compile Include="HighScoreService.svc.cs">
+      <DependentUpon>HighScoreService.svc</DependentUpon>
     </Compile>
-    <Compile Include="IGameService.cs" />
+    <Compile Include="IHighScoreService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
 using cst247_Minesweeper.Models.data;
+using Newtonsoft.Json;
 
 namespace cst247_Minesweeper.Models.business
 {
@@ -146,8 +147,8 @@ namespace cst247_Minesweeper.Models.business
         public GameModel getGame(GameModel partialGame)
         {
             ActiveGameDataService GameDS = new ActiveGameDataService();
-            GameModel game = new JavaScriptSerializer().Deserialize<GameModel>(GameDS.Read(partialGame.Id));
-            game.Id = partialGame.Id;
+            //GameModel game = new JavaScriptSerializer().Deserialize<GameModel>(GameDS.Read(partialGame.Id));
+            GameModel game = JsonConvert.DeserializeObject<GameModel>(GameDS.Read(partialGame.Id));
             return game;
         }
 
@@ -159,7 +160,8 @@ namespace cst247_Minesweeper.Models.business
                 GameDS.Delete(game.Id);
             }
 
-            return GameDS.Create(new JavaScriptSerializer().Serialize(game));
+            //return GameDS.Create(new JavaScriptSerializer().Serialize(game));           
+            return GameDS.Create(JsonConvert.SerializeObject(game));
         }
 
         public int calculateScore(GameModel game)
@@ -198,23 +200,69 @@ namespace cst247_Minesweeper.Models.business
             }
         }
 
-        public IEnumerable<ScoreModel> getHighScores()
+        public List<IEnumerable<ScoreModel>> getHighScores()
         {
             ScoreDataService scoreDS = new ScoreDataService();
             List<ScoreModel> scores = scoreDS.ReadAll();
 
             AccountDataService accountDS = new AccountDataService();
-            foreach(ScoreModel score in scores)
+            foreach (ScoreModel score in scores)
             {
                 score.UserName = accountDS.Read(score.UserId).UserName;
             }
 
-            var highScores =
+            List<IEnumerable<ScoreModel>> highScores = new List<IEnumerable<ScoreModel>>();
+
+            var highScoresEasy =
                 (from score in scores
+                 where score.Difficulty == 0
                  orderby score
-                 select score);//.Take(10);
+                 select score).Take(5);
+
+            highScores.Add(highScoresEasy);
+
+            var highScoresMedium =
+                (from score in scores
+                 where score.Difficulty == 1
+                 orderby score
+                 select score).Take(5);
+
+            highScores.Add(highScoresMedium);
+
+            var highScoresHard =
+                (from score in scores
+                 where score.Difficulty == 2
+                 orderby score
+                 select score).Take(5);
+
+            highScores.Add(highScoresHard);
 
             return highScores;
+        }
+
+        public List<ScoreModel> getAllScores()
+        {
+            ScoreDataService scoreDS = new ScoreDataService();
+            List<ScoreModel> scores = scoreDS.ReadAll();
+
+            AccountDataService accountDS = new AccountDataService();
+            foreach (ScoreModel score in scores)
+            {
+                score.UserName = accountDS.Read(score.UserId).UserName;
+            }
+
+            return scores;
+        }
+
+        public ScoreModel getScore(int id)
+        {
+            ScoreDataService scoreDS = new ScoreDataService();
+            ScoreModel score = scoreDS.Read(id);
+
+            AccountDataService accountDS = new AccountDataService();
+            score.UserName = accountDS.Read(score.UserId).UserName;
+
+            return score;
         }
     }
 }

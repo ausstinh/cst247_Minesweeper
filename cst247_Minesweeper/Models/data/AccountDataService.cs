@@ -60,7 +60,7 @@ namespace cst247_Minesweeper.Models.data
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.Add("@ID", System.Data.SqlDbType.VarChar, 40).Value = id;
+                command.Parameters.Add("@ID", System.Data.SqlDbType.Int).Value = id;
 
                 try
                 {
@@ -92,7 +92,7 @@ namespace cst247_Minesweeper.Models.data
         {
             bool success = false;
 
-            string queryString = "UPDATE * FROM dbo.users SET FIRSTNAME = @FIRSTNAME, LASTNAME = @LASTNAME, USERNAME = @USERNAME, PASSWORD = @PASSWORD, EMAIL = @EMAIL, SEX = @SEX, AGE = @AGE, STATE = @STATE, ACTIVEGAMEID = @ACTIVEGAMEID WHERE ID = @ID";
+            string queryString = "UPDATE dbo.users SET FIRSTNAME = @FIRSTNAME, LASTNAME = @LASTNAME, USERNAME = @USERNAME, PASSWORD = @PASSWORD, EMAIL = @EMAIL, SEX = @SEX, AGE = @AGE, STATE = @STATE, ACTIVEGAMEID = @ACTIVEGAMEID WHERE ID = @ID";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -105,8 +105,8 @@ namespace cst247_Minesweeper.Models.data
                 command.Parameters.Add("@SEX", System.Data.SqlDbType.VarChar, 10).Value = updatedUser.Sex;
                 command.Parameters.Add("@AGE", System.Data.SqlDbType.VarChar, 10).Value = updatedUser.Age;
                 command.Parameters.Add("@STATE", System.Data.SqlDbType.VarChar, 10).Value = updatedUser.State;
-                command.Parameters.Add("@ACTIVEGAMEID", System.Data.SqlDbType.VarChar, 10).Value = updatedUser.ActiveGameId;
-                command.Parameters.Add("@ID", System.Data.SqlDbType.VarChar, 10).Value = updatedUser.Id;
+                command.Parameters.Add("@ACTIVEGAMEID", System.Data.SqlDbType.Int).Value = updatedUser.ActiveGameId;
+                command.Parameters.Add("@ID", System.Data.SqlDbType.Int).Value = updatedUser.Id;
 
                 try
                 {

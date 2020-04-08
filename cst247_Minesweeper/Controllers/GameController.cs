@@ -23,12 +23,21 @@ namespace cst247_Minesweeper.Controllers
             int userActiveGameId = accountBS.getUser(Int32.Parse(Session["user_id"].ToString())).ActiveGameId;
             if (userActiveGameId != -1)
             {
-                GameModel activeGame = gameBS.getGame(new GameModel());
-                return View("~/Views/Game/Board.cshtml", activeGame);
+                GameModel partialGame = new GameModel();
+                partialGame.Id = userActiveGameId;
+                GameBusinessService bs = new GameBusinessService();
+                game = bs.getGame(partialGame);
+
+                return View("~/Views/Game/Board.cshtml", game);
             }
 
             return View("Index");
 
+        }
+
+        public ActionResult OnNewGame()
+        {
+            return View("Index");
         }
 
         [HttpPost]
@@ -50,30 +59,71 @@ namespace cst247_Minesweeper.Controllers
         }
 
         [HttpPost]
+        public ActionResult OnFlag(string coords)
+        {
+            string[] array = coords.Split('|');
+            int y = int.Parse(array[0]);
+            int x = int.Parse(array[1]);
+
+            if(game.Board.TheGrid[y, x].Flagged)
+            {
+                game.Board.TheGrid[y, x].Flagged = false;
+                game.Board.Flags++;
+            }
+            else
+            {
+                game.Board.TheGrid[y, x].Flagged = true;
+                game.Board.Flags--;
+            }
+
+            AjaxOptions ajaxOptions = new AjaxOptions
+            {
+                HttpMethod = "POST",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "game"
+            };
+
+            Tuple<GameModel, AjaxOptions> tuple = new Tuple<GameModel, AjaxOptions>(game, ajaxOptions);
+
+            return PartialView("~/Views/Game/_boardInfo.cshtml", tuple);
+
+        }
+
+        [HttpPost]
         public ActionResult OnReveal(string coords)
         {
             string[] array = coords.Split('|');
             int y = int.Parse(array[0]);
             int x = int.Parse(array[1]);
 
-            GameBusinessService bs = new GameBusinessService(game);
-
-            game.Board = bs.revealOneCell(game.Board.TheGrid[y, x]);
-
-            if (game.Board.TheGrid[y, x].Bomb)
+            if (!game.Board.TheGrid[y, x].Flagged)
             {
-                game.Stopwatch.Stop();
-                return View("~/Views/Game/Loss.cshtml");
-            }
+                GameBusinessService bs = new GameBusinessService(game);
 
-            if (bs.gameWin())
-            {
-                game.Stopwatch.Stop();
+                game.Board = bs.revealOneCell(game.Board.TheGrid[y, x]);
 
-                ScoreModel score = new ScoreModel(bs.calculateScore(game), game.Board.Difficulty, Int32.Parse(Session["user_id"].ToString()));
-                bs.saveScore(score);
+                if (game.Board.TheGrid[y, x].Bomb)
+                {
+                    game.Stopwatch.Stop();
 
-                return View("~/Views/Game/Win.cshtml", score);
+                    AccountBusinessService accountBS = new AccountBusinessService();
+                    accountBS.ResetActiveGame(Int32.Parse(Session["user_id"].ToString()));
+
+                    return View("~/Views/Game/Loss.cshtml");
+                }
+
+                if (bs.gameWin())
+                {
+                    game.Stopwatch.Stop();
+
+                    ScoreModel score = new ScoreModel(bs.calculateScore(game), game.Board.Difficulty, Int32.Parse(Session["user_id"].ToString()));
+                    bs.saveScore(score);
+
+                    AccountBusinessService accountBS = new AccountBusinessService();
+                    accountBS.ResetActiveGame(Int32.Parse(Session["user_id"].ToString()));
+
+                    return View("~/Views/Game/Win.cshtml", score);
+                }
             }
 
             AjaxOptions ajaxOptions = new AjaxOptions
@@ -101,7 +151,7 @@ namespace cst247_Minesweeper.Controllers
         }
 
         [HttpPost]
-        public void OnSaveGame()
+        public ActionResult OnSaveGame()
         {
             GameBusinessService gameBS = new GameBusinessService();
             game.Id = gameBS.saveGame(game);
@@ -110,6 +160,8 @@ namespace cst247_Minesweeper.Controllers
             UserModel user = accountBS.getUser(Int32.Parse(Session["user_id"].ToString()));
             user.ActiveGameId = game.Id;
             accountBS.UpdateUser(user);
+
+            return View("~/Views/Game/Board.cshtml", game);
         }
 
         [HttpGet]
@@ -117,7 +169,7 @@ namespace cst247_Minesweeper.Controllers
         {
             GameBusinessService bs = new GameBusinessService();
 
-            IEnumerable<ScoreModel> highScores = bs.getHighScores();
+            List<IEnumerable<ScoreModel>> highScores = bs.getHighScores();
 
             return View("~/Views/Game/HighScores.cshtml", highScores);
         }

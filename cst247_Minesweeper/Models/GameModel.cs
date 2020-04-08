@@ -21,7 +21,6 @@ namespace cst247_Minesweeper.Models
 
         public GameModel()
         {
-
         }
 
         public GameModel(int id)
