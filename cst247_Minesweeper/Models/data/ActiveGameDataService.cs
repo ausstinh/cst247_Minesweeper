@@ -38,7 +38,7 @@ namespace cst247_Minesweeper.Models.data
 
         public bool Delete(int id)
         {
-            string queryString = "DELETE * FROM dbo.activegames WHERE ID = @ID LIMIT 1";
+            string queryString = "DELETE FROM dbo.activegames WHERE ID = @ID";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

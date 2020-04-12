@@ -32,7 +32,11 @@ namespace cst247_Minesweeper.Models.business
 
         public bool ResetActiveGame(int id)
         {
+            ActiveGameDataService gameDS = new ActiveGameDataService();
+            
             UserModel user = getUser(id);
+
+            gameDS.Delete(user.ActiveGameId);
             user.ActiveGameId = -1;
             return UpdateUser(user);
         }
